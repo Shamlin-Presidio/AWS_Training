@@ -2,7 +2,7 @@
 
 Summarised Idea from ChatGPT:
 --------------------------------
-| Subnet Type | Purpose                         | Internet Access | Use Cases                            |
+| Subnet Type | Purpose                         | Internet Access | Use Cases  (I wanted to know this    |
 | ----------- | ------------------------------- | --------------- | ------------------------------------ |
 | Public      | Internet-facing services        | ✅ Yes           | Nginx for public users               |
 | Private     | Internal services with internet | ✅ Yes (via NAT) | App servers, Nginx in private subnet |
