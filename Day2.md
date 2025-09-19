@@ -45,4 +45,4 @@ This was primaruly through the VPC Gateways and then updating the table in the s
 
 
 
-# Connecting two private subnets was through VPC Peering connection between (update route table)
+# Connecting two private subnets was through VPC Peering connection between them (update route table)
