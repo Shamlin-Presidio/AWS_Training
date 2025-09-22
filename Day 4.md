@@ -12,4 +12,4 @@ Target Groups `tg-api` and `tg-web`
   - Creating two 2 **launch templates** for app(web) and api
   - Creating ASG for each service, and enabling **ELB and EBS Health check** 
 
-<hr/ >
+<hr/>
