@@ -28,3 +28,6 @@ Configured this in Scaling option and chose **Target tracking scaling policy**
   - `Target value`: 50% (standard)
   - `Cooldown period`: 300 seconds (default)
   - - Got `not authorized`, just as in prev step, not able to launch with any templates I create
+
+
+# FIX: Specified the instance type in template itself and retried for both tasks, It worked!
