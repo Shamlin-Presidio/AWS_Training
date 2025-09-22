@@ -11,5 +11,5 @@ Target Groups `tg-api` and `tg-web`
 ## ASG:
   - Creating two 2 **launch templates** for app(web) and api
   - Creating ASG for each service, and enabling **ELB and EBS Health check** 
-
+  - Got `not authorized` 
 <hr/>
