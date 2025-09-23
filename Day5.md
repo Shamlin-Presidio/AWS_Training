@@ -19,3 +19,16 @@ Test failover, recovery, and performance under high transaction loads.
   - seamless failover
   - effective monitoring
 <hr/>
+
+# Steps followed:
+
+  - VPC already has 2 AZ's `us-east-1a` and `us-east-1b` each with 2 public and 2 private subnets in them
+  - RDS: Chose Aurora --> More scalable, quick and efficient
+  - Security: Chose AWS Secrets Manager (created a new key) for encryption
+  - Enabled Key rotation for improved security
+  - Monitoring and Backup enabled
+  - Created alarm and new SNS topic for notifications
+    ## Alarm Metric : CPU Utilization > 70
+
+## ERROR: Not authorised to create RDS 
+## Fix: changed it to serverless, then it worked!
