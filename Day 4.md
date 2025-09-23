@@ -44,16 +44,7 @@ Configured this in Scaling option and chose **Target tracking scaling policy**
   - Attached the Role, **Succeded**
 
 ### **OUTPUT:**
-   ,     #_
-   ~\_  ####_        Amazon Linux 2023
-  ~~  \_#####\
-  ~~     \###|
-  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
-   ~~       V~' '->
-    ~~~         /
-      ~~._.   _/
-         _/ _/
-       _/m/'
+
 [ec2-user@ip-10-0-0-93 ~]$ aws s3 ls
 
 Unable to locate credentials. You can configure credentials by running "aws configure".
