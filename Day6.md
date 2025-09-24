@@ -14,7 +14,39 @@ Design a cloud-based solution that addresses these requirements. Your solution s
   - Discuss any potential challenges and how to address them
   - Consider cost optimization aspects of your solution
 
+## S T E P S:
 
+## APPROACH : 
+  Enable versioning : Some movies may face criticism and edit some scenes and re-upload.
+  Tagging videos as Keep: false --> This would would mean that we can delete them (non-classic), but since we use versioning, delete markers can't be deleted if we use tags
+  So, now I have to folders:
+  - `classic`
+  - `non-classic`
+
+## **Services and Their Roles**
+| Service                            | Role                                                             |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| **Amazon S3**                      | Stores all media files in `classic/` and `non-classic/` prefixes |
+| **S3 Lifecycle Rules**             | Automatically deletes `non-classic/` files after 90 days         |
+| **CloudTrail**                     | Logs all deletions, including those triggered by Lifecycle rules |
+
+
+## **Automation Process for Deleting Unused Files**
+1.	Files are uploaded to classic/ (manually preserved) or non-classic/ (deletable through rules)
+2.	S3 lifecycle rule is scoped to non-classic/
+3.	Lifecycle rule deletes objects in non-classic/ after 90 days
+4.	CloudTrail logs all deletion actions for audit
+5.	S3 Inventory/Access logs record object metadata and access patterns
+
+
+## **This is how we save costs**
+| Strategy                              | Benefit                                                      |
+| ------------------------------------- | ------------------------------------------------------------ |
+| **Delete stale files**                | Massive savings from removing unnecessary data               |
+| **Use of prefixes** instead of Lambda | Saves Lambda costs and avoids complexity                     |
+| **No Glacier unless needed**          | Glacier saves cost but adds complexity and retrieval latency |
+
+  
 <hr />  
 
 # TASK 2
