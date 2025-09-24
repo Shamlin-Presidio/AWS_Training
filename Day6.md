@@ -85,7 +85,7 @@ The institution has a primary S3 bucket named "science-data-2024" containing ter
 <hr />
 
 
-# B O N U S    C H A L L E N G E
+# B O N U S   -  C H A L L E N G E
 
 Multiple account task, so I am just describing the steps I learnt.
 references:
