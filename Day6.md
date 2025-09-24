@@ -59,3 +59,8 @@ The institution has a primary S3 bucket named "science-data-2024" containing ter
   - Implement a solution to protect against accidental deletions and allow easy recovery of deleted data
   - Set up a process to efficiently update metadata tags on millions of objects without downloading and re-uploading them
   - Implement S3 cross region replication for different buckets.Make sure it replicate existing and new objects
+
+## S T E P S:
+
+  - Created bucket with  `**versioning**`
+  - 
