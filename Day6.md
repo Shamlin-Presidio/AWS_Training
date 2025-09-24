@@ -1,4 +1,4 @@
-# TASK 1
+# T A S K   1
 ## D E S C R I P T I O N:
 A large media company stores millions of video files in their cloud storage. They have the following requirements:
 Files that haven't been accessed for 90 days should be automatically deleted to optimize storage costs
@@ -49,7 +49,7 @@ Design a cloud-based solution that addresses these requirements. Your solution s
   
 <hr />  
 
-# TASK 2
+# T A S K   2
 ## D E S C R I P T I O N:
 You're a cloud engineer for a large research institution that stores massive amounts of scientific data in Amazon S3. The institution has recently faced issues with accidental deletions and needs to implement better data protection measures. Additionally, they frequently need to perform large-scale operations on their data sets.
 The institution has a primary S3 bucket named "science-data-2024" containing terabytes of research data.
