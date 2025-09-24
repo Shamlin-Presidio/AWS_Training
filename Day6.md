@@ -23,7 +23,7 @@ Design a cloud-based solution that addresses these requirements. Your solution s
   - `classic`
   - `non-classic`
 
-## **Services and Their Roles**
+## Services and Their Roles
 | Service                            | Role                                                             |
 | ---------------------------------- | ---------------------------------------------------------------- |
 | **Amazon S3**                      | Stores all media files in `classic/` and `non-classic/` prefixes |
