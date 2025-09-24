@@ -62,5 +62,43 @@ The institution has a primary S3 bucket named "science-data-2024" containing ter
 
 ## S T E P S:
 
-  - Created bucket with  `**versioning**`
-  - 
+  - Created bucket with  `versioning`
+  - This enables to protect from accidental delete, and also assists in recovery
+
+## METADATA HANDLING:
+  - This part was difficult for me, Lambda functions are new, Boto3 script is new too
+  - I used script from ChatGPT and learning how it works
+
+    **STEPS:**
+      - Enabled Inventory in main Bucket
+      - Lambda funnction with IAM Role attached was created
+      - Batch operation with this Lambda function was created
+
+
+
+## REPLICATION
+  - Not able to create S3 in another region, so used same region replication
+  - Created a replication s3 resource
+  - Added this as destination in the original one
+  - Replicated existing objects
+
+<hr />
+
+
+# B O N U S    C H A L L E N G E
+
+Multiple account task, so I am just describing the steps I learnt.
+references:
+  - [https://www.youtube.com/watch?v=3m8xwwCnrp0](url)
+  - [https://www.youtube.com/watch?v=cm2xNiLovTg](url)
+
+
+Two account A (source), B(destination):
+**Select another account during replication, as destination**
+IAM Role: Create a replication role in Account A with permissions to Decrypt from A and Encrypt to B using B's key
+
+# Encryption working:
+S3 replication service fetches object from Bucket A (decrypt using `key-A`). 
+Replication role writes object to Bucket B, encrypting it with `key-B`.     
+
+
