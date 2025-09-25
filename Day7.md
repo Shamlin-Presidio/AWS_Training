@@ -25,7 +25,7 @@ Set cache behaviors with appropriate TTLs for different content types (e.g., lon
   - Created custom cache policy with Min TTL: 0, Default TTL: 3600, Max TTL: 86400
   - Used this policy in na new behaviour for the path `/images`
 
-**NOTES:**
+## NOTES:
   - CDN delivers content from edge locations closer to users, reducing latency
   - Enable CloudWatch metrics and access logs.
   - We can create and use policies for optimal TTL Values, behaviours etc.
