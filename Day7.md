@@ -56,7 +56,6 @@ DNS Management: Configure Route 53 hosted zones to manage domain and subdomain r
 <br />
 
 **Failover:** Redirect traffic to a backup resource if the primary fails using health checks. 
-<br />
 
 **Geolocation:** Direct users to region-specific endpoints (e.g., EU users to EU servers).
 <br />
