@@ -20,8 +20,9 @@ Set cache behaviors with appropriate TTLs for different content types (e.g., lon
 
 ## GEO-RESTRICTION:
   - In Cloudfront, got to Security --> CloudFront geographic restrictions and added India and Singapore alone in allow list
-
+  - Created ALB and conected to my VPC and used it as CNAME, just as in Course
     ` We were told to skip Domain registration and certification for the same, but I just explored ACM for the same`
+    
 
 ## INDIVIDUAL CACHING:
   - Created custom cache policy with Min TTL: 0, Default TTL: 3600, Max TTL: 86400
