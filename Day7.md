@@ -33,3 +33,22 @@ Set cache behaviors with appropriate TTLs for different content types (e.g., lon
   - Enable CloudWatch metrics and access logs.
   - We can create and use policies for optimal TTL Values, behaviours etc.
   - Cache stratergy: invlidation can be done by using shorter TTLs for dynamic files/content
+
+<hr />
+
+
+# T A S K - 2
+## DESCRIPTION:
+
+As an AWS Cloud Engineer managing a global e-commerce platform, you need to ensure low latency, high availability, and fault tolerance using AWS Route 53 for DNS management and traffic routing.
+## **Requirements:**
+<br />
+DNS Management: Configure Route 53 hosted zones to manage domain and subdomain records (e.g., A/AAAA records for EC2 or load balancers). 
+<br />
+**Routing Policies:**
+<br />
+**Latency-Based:** Route users to the nearest AWS region for the lowest latency. <br />
+**Weighted:** Distribute traffic across multiple resources with adjustable weights. <br />
+**Failover:** Redirect traffic to a backup resource if the primary fails using health checks.<br />
+**Geolocation:** Direct users to region-specific endpoints (e.g., EU users to EU servers).<br />
+**Health Checks:** Monitor backend services and reroute traffic from unhealthy resources.<br />
