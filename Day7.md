@@ -88,4 +88,4 @@ DNS Management: Configure Route 53 hosted zones to manage domain and subdomain r
 - **Health checks:** I Set up Route 53 health checks on ALB
 
 
- 
+
