@@ -1,11 +1,12 @@
 # T A S K - 1 
 ## DESCRIPTION:
-You are an AWS cloud engineer optimizing static content delivery for a global media streaming company. Your goal is to enhance performance and reduce latency by leveraging Amazon CloudFront as a CDN.
-Configure a CloudFront distribution to serve static assets from an S3 bucket or EC2 instance. Ensure S3 or Ec2 should be accessible only via CloudFront.
+You are an AWS cloud engineer optimizing static content delivery for a global media streaming company. Your goal is to enhance performance and reduce latency by leveraging Amazon CloudFront as a CDN. <br />
+Configure a CloudFront distribution to serve static assets from an S3 bucket or EC2 instance. 
+<br />Ensure S3 or Ec2 should be accessible only via CloudFront. <br />
 **Test Delivery:**
-Test the CloudFront URL using tools like VPNs to confirm content is served from the nearest edge location.
-**Optimize Caching:**
-Set cache behaviors with appropriate TTLs for different content types (e.g., longer for images, shorter for frequently updated files).
+Test the CloudFront URL using tools like VPNs to confirm content is served from the nearest edge location. <br />
+**Optimize Caching:** <br />
+Set cache behaviors with appropriate TTLs for different content types (e.g., longer for images, shorter for frequently updated files). <br />
 
 ## STEPS:
  - Created S3 bucket, added Index.html sample file
