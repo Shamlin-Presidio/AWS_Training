@@ -60,3 +60,32 @@ DNS Management: Configure Route 53 hosted zones to manage domain and subdomain r
 
 **Health Checks:** Monitor backend services and reroute traffic from unhealthy resources.
 
+
+
+## STEPS:
+ - Created two servers in 2 different AZs in my VPC
+ - Configured VPC to resolve hostnames
+ - Created a load balancer and attached the 2 servers to it using target groups
+
+## Route53:
+- Created a private hosted zone
+- Added this load balaner as a CNAME to as a new record
+- Created Health check for the ALB
+
+## LATENCY BASED ROUTING:
+ - New records --> Type --> A
+ - Chose routing policy as Latency
+ - created new records for 2 regions and added the public IP of each server
+ - added the created ALB health check to it
+
+`Repeated the same for each routing policy, just changed the policy appropriately`
+
+## N O T E S:
+- **Configure hosted zone & records:** Created a hosted zone in Route 53 and add A and CNAME records pointing to EC2 and Load Balancer endpoints.
+- **Latency-based routing:** Created latency-based records for resources in multiple regions so Route 53 directs users to the lowest-latency region.
+- **Weighted routing**: Created weighted records with adjustable weights to distribute traffic proportionally across multiple resources.
+- **Failover routing:** Configured primary and secondary records with failover routing, attaching health checks to automatically switch on failure.
+- **Health checks:** I Set up Route 53 health checks on ALB
+
+
+ 
