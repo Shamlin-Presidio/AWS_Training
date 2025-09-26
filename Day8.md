@@ -25,3 +25,14 @@ Monitor container health and log application events using CloudWatch.
 
 # T A S K - 2
 ## DESCRIPTION:
+You are a cloud engineer tasked in designing a notification system for an e-commerce platform to process and track orders.
+
+**Requirements:**
+
+Use SNS to send order confirmations to customers.
+
+Use SQS to process order details in a separate queue.
+
+Handle failed message delivery
+
+Monitor queue performance
