@@ -40,3 +40,9 @@ Monitor queue performance
 
 ## 
 ## S T E P S :
+  - Starting with **SQS**
+  - Created 2 queues `orders` and `DLQ`. DLQ means Dead Letter Queue, learnt this from chatGPT and this is a queue to catch failed messages for retry/debug
+  - Created **SNS topic**
+  - Added the `orders` queue under the subscriptions
+  - Started to poll for messages in SQS
+  - Tested this by sending a message from SNS topic, and was able to recieve it in the SQS Queue
