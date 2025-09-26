@@ -36,3 +36,6 @@ Use SQS to process order details in a separate queue.
 Handle failed message delivery
 
 Monitor queue performance
+
+## 
+## S T E P S :
