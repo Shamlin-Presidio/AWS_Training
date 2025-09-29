@@ -33,8 +33,12 @@ The goal is to automatically handle traffic spikes by scaling EC2 instances up o
   ## Created Load balancer
   <hr />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/ALB.png" />
+    
   ## Created Auto Scaling Group with this template, and attached the Load balancer to this
+  <hr />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/ASG.png" />
+    
   ## Created two alarms `scale out` and `scale in` and attached it to two new **step-scaling** policies in **ASG**
+  <hr />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Choosing%20CPU%20Utilization.png" />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Policy%20in%20ASG.png" />
