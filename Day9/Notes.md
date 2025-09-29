@@ -26,7 +26,7 @@ The goal is to automatically handle traffic spikes by scaling EC2 instances up o
     echo "Hello World from $(hostname -f)" > /var/www/html/index.html
 
     ```
-    [EC2 Instances](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/EC2.png?raw=true)
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/EC2.png" />
   - Created Target group
   - Created Load balancer
   - Created Auto Scaling Group with this template, and attached the Load balancer to this
