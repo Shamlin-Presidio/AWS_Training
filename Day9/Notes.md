@@ -26,20 +26,20 @@ The goal is to automatically handle traffic spikes by scaling EC2 instances up o
     echo "Hello World from $(hostname -f)" > /var/www/html/index.html
 
     ```
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/EC2.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/EC2.png" />
   ## Created Target group 
   <hr />
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/TargetGroup.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/TargetGroup.png" />
     
   ## Created Load balancer
   <hr />
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/ALB.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/ALB.png" />
     
   ## Created Auto Scaling Group with this template, and attached the Load balancer to this
   <hr />
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/ASG.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/ASG.png" />
     
   ## Created two alarms `scale out` and `scale in` and attached it to two new **step-scaling** policies in **ASG**
   <hr />
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Choosing%20CPU%20Utilization.png" />
-    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Policy%20in%20ASG.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/Choosing%20CPU%20Utilization.png" />
+    <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/Policy%20in%20ASG.png" />
