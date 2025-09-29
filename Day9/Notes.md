@@ -30,6 +30,7 @@ The goal is to automatically handle traffic spikes by scaling EC2 instances up o
   ## Created Target group 
   <hr />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/TargetGroup.png" />
+    
   ## Created Load balancer
   <hr />
     <img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/ALB.png" />
