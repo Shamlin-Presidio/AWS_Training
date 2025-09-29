@@ -12,7 +12,21 @@ The goal is to automatically handle traffic spikes by scaling EC2 instances up o
   - Scale out when CPU utilisation exceeds 70% for 5 minutes.
   - Scale in when CPU utilization drops below 30% for 5 minutes.
   - Ensure the infrastructure automatically scales to handle varying traffic loads.
-  - 
+
 <hr />
 
 ## S T E P S 
+  - Launched 2 instances with user data as follows (created this as a template too) :
+    ```
+    #!/bin/bash
+    yum update -y
+    yum install -y httpd
+    systemctl start httpd
+    systemctl enable httpd
+    echo "Hello World from $(hostname -f)" > /var/www/html/index.html
+
+    ```
+  - Created Target group
+  - Created Load balancer
+  - Created Auto Scaling Group with this template, and attached the Load balancer to this
+  - Created two alarms `scale out` and `scale in` and attached it to two new **step-scaling** policies in **ASG**
