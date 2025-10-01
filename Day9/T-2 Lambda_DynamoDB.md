@@ -30,12 +30,12 @@ Log the deletion event in the DynamoDB table.
 <h3 />
 
 ## Created S3 Bucket with the mentioned folders and DynamoDB Table 
-## L A M D A   F U N C T I O N S:
-
+## L A M D A  -  F U N C T I O N S:
+`Referred GPT for this section, learning boto3 now`
 <hr />
 
+## ProcessTextFileFunction : (added this as trigger)
 ## Policy
-
 ```
 {
   "Version": "2012-10-17",
@@ -63,3 +63,41 @@ Log the deletion event in the DynamoDB table.
   ]
 }
 ```
+## CODE:
+
+```python
+import boto3
+import datetime
+
+s3 = boto3.client('s3')
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('shamlin-DocumentMetadata')
+
+def lambda_handler(event, context):
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = event['Records'][0]['s3']['object']['key']
+    
+    response = s3.get_object(Bucket=bucket, Key=key)
+    text = response['Body'].read().decode('utf-8')
+    word_count = len(text.split())
+
+    metadata = {
+        'FileName': key,
+        'Timestamp': datetime.datetime.utcnow().isoformat(),
+        'WordCount': word_count
+    }
+
+    table.put_item(Item=metadata)
+
+    updated_text = f"WordCount: {word_count}\nTimestamp: {metadata['Timestamp']}\n\n{text}"
+    processed_key = key.replace('raw-documents/', 'processed/')
+    
+    s3.put_object(
+        Bucket=bucket,
+        Key=processed_key,
+        Body=updated_text.encode('utf-8')
+    )
+
+    return {"status": "done", "wordCount": word_count}
+```
+## Similary, created ArchiveHandlerFunction and DeletionNotifierFunction and added them as event triggers in S3
