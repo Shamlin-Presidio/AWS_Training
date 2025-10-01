@@ -63,6 +63,9 @@ Log the deletion event in the DynamoDB table.
   ]
 }
 ```
+
+<img src ="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/Policy.png" />
+
 ## CODE:
 
 ```python
@@ -101,3 +104,5 @@ def lambda_handler(event, context):
     return {"status": "done", "wordCount": word_count}
 ```
 ## Similary, created ArchiveHandlerFunction and DeletionNotifierFunction and added them as event triggers in S3
+
+<img src ="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/S3%20-%20Events.png" />
