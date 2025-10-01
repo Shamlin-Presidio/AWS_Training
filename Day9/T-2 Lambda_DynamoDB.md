@@ -24,6 +24,16 @@ When an object is deleted, trigger a Lambda function to:
 Send a notification to an SNS topic with details like file name, prefix, deletion time, and user (if available).
 Log the deletion event in the DynamoDB table.
 
+<hr />
+
+## S T E P S
+<h3 />
+
+## Created S3 Bucket with the mentioned folders and DynamoDB Table 
+## L A M D A   F U N C T I O N S:
+
+<hr />
+
 ## Policy
 
 ```
