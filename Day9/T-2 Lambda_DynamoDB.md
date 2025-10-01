@@ -33,7 +33,7 @@ Log the deletion event in the DynamoDB table.
 ## L A M D A  -  F U N C T I O N S:
 `Referred GPT for this section, learning boto3 now`
 <hr />
-
+<br />
 ## ProcessTextFileFunction : (added this as trigger)
 ## Policy
 ```json
@@ -65,7 +65,7 @@ Log the deletion event in the DynamoDB table.
 ```
 
 <img src ="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/Policy.png" />
-
+<br />
 ## CODE:
 
 ```python
@@ -103,6 +103,7 @@ def lambda_handler(event, context):
 
     return {"status": "done", "wordCount": word_count}
 ```
+<br />
 ## Similary, created ArchiveHandlerFunction and DeletionNotifierFunction and added them as event triggers in S3
-
+<br />
 <img src ="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day9/Assets/S3%20-%20Events.png" />
