@@ -25,6 +25,7 @@ Send a notification to an SNS topic with details like file name, prefix, deletio
 Log the deletion event in the DynamoDB table.
 
 <hr />
+<hr />
 
 ## S T E P S
 <h3 />
