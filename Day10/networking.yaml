@@ -1,0 +1,192 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Shamlin - VPC with public/private subnets, IGW, NAT Gateway, and routing
+
+Parameters:
+  VpcCidr:
+    Type: String
+    Default: 10.0.0.0/16
+  PublicSubnet1Cidr:
+    Type: String
+    Default: 10.0.1.0/24
+  PublicSubnet2Cidr:
+    Type: String
+    Default: 10.0.2.0/24
+  PrivateSubnet1Cidr:
+    Type: String
+    Default: 10.0.3.0/24
+  PrivateSubnet2Cidr:
+    Type: String
+    Default: 10.0.4.0/24
+  AZ1:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1a
+  AZ2:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-1b
+
+Resources:
+  ShamlinVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Shamlin-VPC
+
+  ShamlinInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Shamlin-IGW
+
+  ShamlinAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      InternetGatewayId: !Ref ShamlinInternetGateway
+
+  ShamlinPublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      CidrBlock: !Ref PublicSubnet1Cidr
+      AvailabilityZone: !Ref AZ1
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Shamlin-PublicSubnet1
+
+  ShamlinPublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      CidrBlock: !Ref PublicSubnet2Cidr
+      AvailabilityZone: !Ref AZ2
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: Shamlin-PublicSubnet2
+
+  ShamlinPrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      CidrBlock: !Ref PrivateSubnet1Cidr
+      AvailabilityZone: !Ref AZ1
+      Tags:
+        - Key: Name
+          Value: Shamlin-PrivateSubnet1
+
+  ShamlinPrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      CidrBlock: !Ref PrivateSubnet2Cidr
+      AvailabilityZone: !Ref AZ2
+      Tags:
+        - Key: Name
+          Value: Shamlin-PrivateSubnet2
+
+  ShamlinPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      Tags:
+        - Key: Name
+          Value: Shamlin-PublicRouteTable
+
+  ShamlinPublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: ShamlinAttachGateway
+    Properties:
+      RouteTableId: !Ref ShamlinPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref ShamlinInternetGateway
+
+  ShamlinPublicSubnet1RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShamlinPublicSubnet1
+      RouteTableId: !Ref ShamlinPublicRouteTable
+
+  ShamlinPublicSubnet2RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShamlinPublicSubnet2
+      RouteTableId: !Ref ShamlinPublicRouteTable
+
+  ShamlinEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  ShamlinNATGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt ShamlinEIP.AllocationId
+      SubnetId: !Ref ShamlinPublicSubnet1
+      Tags:
+        - Key: Name
+          Value: Shamlin-NATGateway
+
+  ShamlinPrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref ShamlinVPC
+      Tags:
+        - Key: Name
+          Value: Shamlin-PrivateRouteTable
+
+  ShamlinPrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref ShamlinPrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref ShamlinNATGateway
+
+  ShamlinPrivateSubnet1RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShamlinPrivateSubnet1
+      RouteTableId: !Ref ShamlinPrivateRouteTable
+
+  ShamlinPrivateSubnet2RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShamlinPrivateSubnet2
+      RouteTableId: !Ref ShamlinPrivateRouteTable
+
+Outputs:
+  ShamlinVPCID:
+    Description: Shamlin VPC ID
+    Value: !Ref ShamlinVPC
+    Export:
+      Name: Shamlin-VPC-ID
+
+  ShamlinPublicSubnet1:
+    Description: Shamlin Public Subnet 1
+    Value: !Ref ShamlinPublicSubnet1
+    Export:
+      Name: Shamlin-PublicSubnet1
+
+  ShamlinPublicSubnet2:
+    Description: Shamlin Public Subnet 2
+    Value: !Ref ShamlinPublicSubnet2
+    Export:
+      Name: Shamlin-PublicSubnet2
+
+  ShamlinPrivateSubnet1:
+    Description: Shamlin Private Subnet 1
+    Value: !Ref ShamlinPrivateSubnet1
+    Export:
+      Name: Shamlin-PrivateSubnet1
+
+  ShamlinPrivateSubnet2:
+    Description: Shamlin Private Subnet 2
+    Value: !Ref ShamlinPrivateSubnet2
+    Export:
+      Name: Shamlin-PrivateSubnet2
+

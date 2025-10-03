@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Security resources - IAM role and security groups
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+
+  ShamlinInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Shamlin-EC2Role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+      Tags:
+        - Key: Name
+          Value: Shamlin-EC2Role
+
+  ShamlinInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref ShamlinInstanceRole
+      InstanceProfileName: Shamlin-EC2InstanceProfile
+
+  ShamlinALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP access from anywhere
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: Shamlin-ALB-SG
+
+  ShamlinEC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow traffic only from ALB
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref ShamlinALBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Shamlin-EC2-SG
+
+Outputs:
+  ALBSecurityGroup:
+    Description: Security Group for Load Balancer
+    Value: !Ref ShamlinALBSecurityGroup
+    Export:
+      Name: Shamlin-ALBSG
+
+  EC2SecurityGroup:
+    Description: Security Group for EC2
+    Value: !Ref ShamlinEC2SecurityGroup
+    Export:
+      Name: Shamlin-EC2SG
+
+  EC2InstanceProfile:
+    Description: Instance profile to attach to EC2
+    Value: !Ref ShamlinInstanceProfile
+    Export:
+      Name: Shamlin-EC2InstanceProfile

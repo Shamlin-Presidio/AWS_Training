@@ -1,0 +1,128 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Shamlin - Compute Stack with ALB, ASG, and Launch Template
+
+Parameters:
+  VpcId:
+    Type: String
+  PublicSubnets:
+    Type: CommaDelimitedList
+  PrivateSubnets:
+    Type: CommaDelimitedList
+
+Resources:
+
+  ShamlinInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+  ShamlinInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles: [!Ref ShamlinInstanceRole]
+
+  ShamlinALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP from internet
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  ShamlinEC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP from ALB
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref ShamlinALBSecurityGroup
+
+  ShamlinLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        InstanceType: t2.micro
+        ImageId: !Sub "{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}"
+        IamInstanceProfile:
+          Arn: !GetAtt ShamlinInstanceProfile.Arn
+        SecurityGroupIds:
+          - !Ref ShamlinEC2SecurityGroup
+        UserData: !Base64 |
+          #!/bin/bash
+          yum update -y
+          amazon-linux-extras install nginx1 -y
+          systemctl enable nginx
+          systemctl start nginx
+      LaunchTemplateName: ShamlinLaunchTemplate
+
+  ShamlinTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VpcId
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: 80
+      HealthCheckPath: /
+
+  ShamlinALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Subnets: !Ref PublicSubnets
+      SecurityGroups:
+        - !Ref ShamlinALBSecurityGroup
+      LoadBalancerAttributes:
+        - Key: deletion_protection.enabled
+          Value: false
+
+  ShamlinListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref ShamlinALB
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref ShamlinTargetGroup
+
+  ShamlinASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      MinSize: "1"
+      MaxSize: "3"
+      DesiredCapacity: "2"
+      VPCZoneIdentifier: !Ref PrivateSubnets
+      LaunchTemplate:
+        LaunchTemplateId: !Ref ShamlinLaunchTemplate
+        Version: !GetAtt ShamlinLaunchTemplate.LatestVersionNumber
+      TargetGroupARNs:
+        - !Ref ShamlinTargetGroup
+      Tags:
+        - Key: Name
+          Value: Shamlin-EC2
+          PropagateAtLaunch: true
+
+Outputs:
+  LoadBalancerDNS:
+    Description: DNS of the Load Balancer
+    Value: !GetAtt ShamlinALB.DNSName
+    Export:
+      Name: Shamlin-ALB-DNS
