@@ -22,7 +22,19 @@ Develop separate AWS CloudFormation templates for each component of the applicat
 
 I created the following yaml files in order:
 
-    - [networking.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/networking.yaml)
-    - compute.yaml
-    - security.yaml
-    - main-stack.yaml
+**1.** [networking.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/networking.yaml)
+**2.** [compute.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/compute.yaml)
+**3.** [security.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/security.yaml)
+**4.** [main-stack.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/main-stack.yaml)
+
+## And uploaded them, which gave individual s3 links annd I copied them to use in main-stack
+```
+https://s3.us-east-1.amazonaws.com/cf-templates-10u308snxiy7m-us-east-1/2025-10-03T110455.992Z03l-networking.yaml
+
+https://s3.us-east-1.amazonaws.com/cf-templates-10u308snxiy7m-us-east-1/2025-10-03T110939.158Zikl-compute.yaml
+
+https://s3.us-east-1.amazonaws.com/cf-templates-10u308snxiy7m-us-east-1/2025-10-03T111819.247Zifj-security.yaml
+
+```
+## O U T P U T:
+<img src="https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/Assets/Final.png" />
