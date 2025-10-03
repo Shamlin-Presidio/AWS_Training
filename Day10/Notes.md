@@ -22,10 +22,10 @@ Develop separate AWS CloudFormation templates for each component of the applicat
 
 I created the following yaml files in order:
 
-**1.** [networking.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/networking.yaml)
-**2.** [compute.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/compute.yaml)
-**3.** [security.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/security.yaml)
-**4.** [main-stack.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/main-stack.yaml)
+**1.** [networking.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/networking.yaml) <br />
+**2.** [compute.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/compute.yaml) <br />
+**3.** [security.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/security.yaml) <br />
+**4.** [main-stack.yaml](https://github.com/Shamlin-Presidio/AWS_Training/blob/main/Day10/main-stack.yaml) <br />
 
 ## And uploaded them, which gave individual s3 links annd I copied them to use in main-stack
 ```
